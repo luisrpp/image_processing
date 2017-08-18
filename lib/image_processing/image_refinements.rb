@@ -18,6 +18,7 @@ module ImageProcessing
       # Threshold operation.
       #
       # @param thresh [Integer] threshold value
+      # @param type [Symbol] threshold type
       #
       # @return [Vips::Image] threshold result
       # @raise [ImageProcessing::ImageProcessingError] for invalid types

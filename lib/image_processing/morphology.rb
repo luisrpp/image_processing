@@ -30,6 +30,30 @@ module ImageProcessing
         image.rank(size_w, size_h, 0)
       end
 
+      # Opening operator.
+      #
+      # @param image [Vips::Image] grayscale image
+      # @param size_w [Integer] the width of the window
+      # @param size_h [Integer] the height of the window
+      #
+      # @return [Vips::Image] opening result
+      # @raise [ImageProcessing::ImageProcessingError] in case of invalid images
+      def opening(image, size_w = 3, size_h = size_w)
+        dilate(erode(image, size_w, size_h), size_w, size_h)
+      end
+
+      # Closing operator.
+      #
+      # @param image [Vips::Image] grayscale image
+      # @param size_w [Integer] the width of the window
+      # @param size_h [Integer] the height of the window
+      #
+      # @return [Vips::Image] closing result
+      # @raise [ImageProcessing::ImageProcessingError] in case of invalid images
+      def closing(image, size_w = 3, size_h = size_w)
+        erode(dilate(image, size_w, size_h), size_w, size_h)
+      end
+
       # Morphological gradient.
       #
       # @param image [Vips::Image] grayscale image

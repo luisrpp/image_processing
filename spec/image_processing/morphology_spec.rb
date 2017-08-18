@@ -55,6 +55,36 @@ RSpec.describe ImageProcessing::Morphology do
     end
   end
 
+  describe '.opening' do
+    subject(:image) do
+      Vips::Image.new_from_array([[0.0, 0.0, 0.0],
+                                  [0.0, 1.0, 0.0],
+                                  [0.0, 0.0, 0.0]])
+    end
+
+    it 'opening operator' do
+      opening = ImageProcessing::Morphology.opening(image)
+      expect(opening.to_a).to eq([[[0.0], [0.0], [0.0]],
+                                  [[0.0], [0.0], [0.0]],
+                                  [[0.0], [0.0], [0.0]]])
+    end
+  end
+
+  describe '.closing' do
+    subject(:image) do
+      Vips::Image.new_from_array([[1.0, 1.0, 1.0],
+                                  [1.0, 0.0, 1.0],
+                                  [1.0, 1.0, 1.0]])
+    end
+
+    it 'closing operator' do
+      closing = ImageProcessing::Morphology.closing(image)
+      expect(closing.to_a).to eq([[[1.0], [1.0], [1.0]],
+                                  [[1.0], [1.0], [1.0]],
+                                  [[1.0], [1.0], [1.0]]])
+    end
+  end
+
   describe '.gradient' do
     subject(:image) do
       Vips::Image.new_from_array([[0.0, 0.0, 0.0],

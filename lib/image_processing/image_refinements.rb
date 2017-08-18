@@ -6,7 +6,7 @@ module ImageProcessing
     refine Vips::Image do
       # Converts the image to greyscale.
       #
-      # @return [Vips::Image] grayscale image
+      # @return [Vips::Image] greyscale image
       def to_greyscale
         if format == :uchar
           colourspace(:b_w)[0]

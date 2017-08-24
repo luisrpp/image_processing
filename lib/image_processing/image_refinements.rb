@@ -15,6 +15,19 @@ module ImageProcessing
         end
       end
 
+      # Get all non zero pixels of the image.
+      #
+      # @return [Array<Hash<Integer, Integer, Array<Numeric>>>] non zero pixels
+      def non_zero_pixels
+        pixels = []
+        to_a.each_with_index do |row, i|
+          row.each_with_index do |value, j|
+            pixels << { x: i, y: j, value: value } unless value.sum.zero?
+          end
+        end
+        pixels
+      end
+
       # Threshold operation.
       #
       # @param thresh [Integer] threshold value

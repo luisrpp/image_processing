@@ -18,6 +18,22 @@ RSpec.describe ImageProcessing::ImageRefinements do
     end
   end
 
+  describe '#non_zero_pixels' do
+    subject(:image) do
+      Vips::Image.new_from_array([[0.0, 60.0, 70.0],
+                                  [100.0, 0.0, 190.0],
+                                  [200.0, 220.0, 0.0]])
+    end
+
+    it 'get all non zero pixels' do
+      pixels = image.non_zero_pixels
+      expect(pixels.first[:x]).to eq(0)
+      expect(pixels.first[:y]).to eq(1)
+      expect(pixels.first[:value]).to eq([60.0])
+      expect(pixels.size).to eq(6)
+    end
+  end
+
   describe '#threshold' do
     subject(:image) do
       Vips::Image.new_from_array([[50.0, 60.0, 70.0],

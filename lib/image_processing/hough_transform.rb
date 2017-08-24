@@ -3,6 +3,8 @@
 module ImageProcessing
   # Hough Transform implementation.
   class HoughTransform
+    using ImageProcessing::ImageRefinements
+
     attr_reader :image
 
     def initialize(image)

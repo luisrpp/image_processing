@@ -12,7 +12,7 @@ RSpec.describe ImageProcessing::HoughTransform do
 
   describe '#find_lines' do
     it 'find lines in an image' do
-      subject.find_lines
+      puts subject.find_lines
     end
   end
 end

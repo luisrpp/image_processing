@@ -5,14 +5,44 @@ require 'spec_helper'
 RSpec.describe ImageProcessing::HoughTransform do
   using ImageProcessing::ImageRefinements
 
-  subject { described_class.new(grey_image) }
+  subject { described_class.new(image) }
 
-  let(:image) { Vips::Image.new_from_file('samples/lines.png') }
-  let(:grey_image) { image.to_greyscale }
+  # let(:image) { Vips::Image.new_from_array [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 255, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 255, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 255, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 255, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 255, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 255, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 255, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 255, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }
+
+  # let(:image) { Vips::Image.new_from_array [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 255, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 255, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 255, 0],
+  #                                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }
+
+  let(:image) { Vips::Image.new_from_array [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 255, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }
 
   describe '#find_lines' do
     it 'find lines in an image' do
-      puts subject.find_lines
+      subject.find_lines(rho_res: 1.0)
     end
   end
 end

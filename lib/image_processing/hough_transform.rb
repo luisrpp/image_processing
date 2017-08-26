@@ -17,7 +17,7 @@ module ImageProcessing
         @theta_res = theta_res
         @rho_res = rho_res
         @theta_size = (2.0 * Math::PI / 2) / theta_res
-        @rho_size = 2.0 * (rho_res * Math.sqrt((image.width**2) + (image.height**2))).ceil
+        @rho_size = 2.0 * rho_res * Math.sqrt((image.width**2) + (image.height**2)).ceil
         @matrix = Matrix.zero(rho_size, theta_size).to_a
       end
 

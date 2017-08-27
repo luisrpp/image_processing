@@ -44,14 +44,24 @@ module ImageProcessing
       def write(theta, rho)
         rho_index = find_sequence_index(rho_sequence, rho)
         theta_index = find_sequence_index(theta_sequence, theta)
+
         matrix[rho_index][theta_index] += 1
+      end
+
+      def to_image
+        matrix_img = Vips::Image.new_from_array matrix
+        matrix_img.scaleimage
       end
 
       private
 
-      def find_sequence_index(sequence, value)
-        sequence.each_with_index do |val, index|
-          return index - 1 if value < val
+      def find_sequence_index(sequence, value) # rubocop:disable Metrics/AbcSize
+        step_size = sequence[1] - sequence[0]
+        estimated_position = ((value / step_size) + sequence.size / 2).round - 1
+        estimated_position = 0 if estimated_position.negative?
+
+        sequence[estimated_position..-1].each_with_index do |val, index|
+          return estimated_position + index - 1 if value < val
         end
 
         sequence.size - 1
@@ -63,7 +73,7 @@ module ImageProcessing
       @image = image
     end
 
-    def find_lines(options = {}) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    def find_lines(options = {}) # rubocop:disable Metrics/AbcSize
       default_options = { theta_res: Math::PI / 180, rho_res: 1.0 }
       options = default_options.merge(options)
 
@@ -76,11 +86,7 @@ module ImageProcessing
         end
       end
 
-      acc_matrix = Vips::Image.new_from_array accumulator.matrix
-      puts acc_matrix.max
-      acc_matrix = acc_matrix * 255
-      puts acc_matrix.max
-      acc_matrix.write_to_file('accumulator.png')
+      # accumulator.to_image.write_to_file('accumulator.png')
     end
 
     private

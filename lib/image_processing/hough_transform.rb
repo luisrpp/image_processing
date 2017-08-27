@@ -11,29 +11,50 @@ module ImageProcessing
 
     # Generates the Accumulator Matrix.
     class Accumulator
-      attr_reader :matrix, :theta_res, :theta_size, :rho_res, :rho_size
+      attr_reader :theta_res, :rho_res, :matrix
 
-      def initialize(image, theta_res, rho_res) # rubocop:disable Metrics/AbcSize
+      def initialize(image, theta_res, rho_res)
+        @image = image
         @theta_res = theta_res
         @rho_res = rho_res
-        @theta_size = (2.0 * Math::PI / 2) / theta_res
-        @rho_size = 2.0 * rho_res * Math.sqrt((image.width**2) + (image.height**2)).ceil
-        @matrix = Matrix.zero(rho_size, theta_size).to_a
+        @matrix = Matrix.zero(rho_sequence.size, theta_sequence.size).to_a
+      end
+
+      def theta_sequence
+        return @theta_sequence if @theta_sequence
+
+        theta_start = -Math::PI / 2
+        theta_end = (Math::PI / 2) - theta_res
+        @theta_sequence = (theta_start..theta_end).step(theta_res).to_a
+
+        @theta_sequence
+      end
+
+      def rho_sequence
+        return @rho_sequence if @rho_sequence
+
+        diagonal = Math.sqrt((@image.width**2) + (@image.height**2)).ceil
+        rho_start = -diagonal
+        rho_end = diagonal
+        @rho_sequence = (rho_start..rho_end).step(1.0 / rho_res).to_a
+
+        @rho_sequence
       end
 
       def write(theta, rho)
-        puts "rho=#{rho} rho_size=#{rho_size} rho_index=#{rho_index(rho)} theta=#{theta} theta_index=#{theta_index(theta)}"
-        matrix[rho_index(rho)][theta_index(theta)] += 1
+        rho_index = find_sequence_index(rho_sequence, rho)
+        theta_index = find_sequence_index(theta_sequence, theta)
+        matrix[rho_index][theta_index] += 1
       end
 
       private
 
-      def theta_index(theta)
-        (theta / theta_res).round + theta_size / 2
-      end
+      def find_sequence_index(sequence, value)
+        sequence.each_with_index do |val, index|
+          return index - 1 if value < val
+        end
 
-      def rho_index(rho)
-        (rho / rho_res).round + rho_size / 2
+        sequence.size - 1
       end
     end
 
@@ -48,11 +69,8 @@ module ImageProcessing
 
       accumulator = Accumulator.new(image, options[:theta_res], options[:rho_res])
 
-      theta_start = -Math::PI / 2
-      theta_end = (Math::PI / 2) - options[:theta_res]
-
       image.non_zero_pixels.each do |pixel|
-        (theta_start..theta_end).step(options[:theta_res]).each do |theta|
+        accumulator.theta_sequence.each do |theta|
           rho = pixel[:x] * Math.cos(theta) + pixel[:y] * Math.sin(theta)
           accumulator.write(theta, rho)
         end

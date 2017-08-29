@@ -69,7 +69,7 @@ module ImageProcessing
       #
       # @return [Integer] the maximum value
       def max_value
-        max = -1
+        max = 0
 
         matrix.each do |row|
           row_max = row.max

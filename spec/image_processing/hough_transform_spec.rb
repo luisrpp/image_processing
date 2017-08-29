@@ -22,7 +22,12 @@ RSpec.describe ImageProcessing::HoughTransform do
 
   describe '#find_lines' do
     it 'find lines in an image' do
-      subject.find_lines(theta_res: Math::PI / 180, rho_res: 10.0)
+      lines = subject.find_lines(theta_res: Math::PI / 180, rho_res: 10.0, threshold: 100)
+
+      expect(lines.size).to eq(1)
+      expect(lines[0][:rho]).to eq(0.0)
+      expect(lines[0][:theta]).to eq(-0.7853981633974483)
+      expect(lines[0][:value]).to eq(3)
     end
   end
 end

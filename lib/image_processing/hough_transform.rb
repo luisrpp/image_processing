@@ -48,6 +48,37 @@ module ImageProcessing
         matrix[rho_index][theta_index] += 1
       end
 
+      # Get all intersections.
+      #
+      # @param min_value [Integer] minimum number of intersections.
+      #
+      # @return [Array<Hash<Integer, Integer, Array<Numeric>>>] intersections
+      def intersections(min_value)
+        values = []
+
+        matrix.each_with_index do |row, i|
+          row.each_with_index do |value, j|
+            values << { rho: rho_sequence[i], theta: theta_sequence[j], value: value } unless value < min_value
+          end
+        end
+
+        values.sort { |a, b| b[:value] <=> a[:value] }
+      end
+
+      # Maximum value in the accumulator matrix.
+      #
+      # @return [Integer] the maximum value
+      def max_value
+        max = -1
+
+        matrix.each do |row|
+          row_max = row.max
+          max = row_max if row_max > max
+        end
+
+        max
+      end
+
       def to_image
         matrix_img = Vips::Image.new_from_array matrix
         matrix_img.scaleimage
@@ -55,16 +86,9 @@ module ImageProcessing
 
       private
 
-      def find_sequence_index(sequence, value) # rubocop:disable Metrics/AbcSize
+      def find_sequence_index(sequence, value)
         step_size = sequence[1] - sequence[0]
-        estimated_position = ((value / step_size) + sequence.size / 2).round - 1
-        estimated_position = 0 if estimated_position.negative?
-
-        sequence[estimated_position..-1].each_with_index do |val, index|
-          return estimated_position + index - 1 if value < val
-        end
-
-        sequence.size - 1
+        (value / step_size.to_f + sequence.size / 2).round
       end
     end
 
@@ -74,7 +98,7 @@ module ImageProcessing
     end
 
     def find_lines(options = {}) # rubocop:disable Metrics/AbcSize
-      default_options = { theta_res: Math::PI / 180, rho_res: 1.0 }
+      default_options = { theta_res: Math::PI / 180, rho_res: 1.0, threshold: 80 }
       options = default_options.merge(options)
 
       accumulator = Accumulator.new(image, options[:theta_res], options[:rho_res])
@@ -86,7 +110,9 @@ module ImageProcessing
         end
       end
 
-      # accumulator.to_image.write_to_file('accumulator.png')
+      # accumulator.to_image.write_to_file('accumulator.jpg')
+
+      accumulator.intersections(accumulator.max_value * options[:threshold] / 100.0)
     end
 
     private

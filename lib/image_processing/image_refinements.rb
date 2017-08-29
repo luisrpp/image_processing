@@ -17,7 +17,7 @@ module ImageProcessing
 
       # Get all non zero pixels of the image.
       #
-      # @return [Array<Hash<Integer, Integer, Array<Numeric>>>] non zero pixels
+      # @return [Array<Hash<Symbol, Object>>] non zero pixels
       def non_zero_pixels
         pixels = []
         to_a.each_with_index do |row, i|

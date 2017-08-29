@@ -52,7 +52,7 @@ module ImageProcessing
       #
       # @param min_value [Integer] minimum number of intersections.
       #
-      # @return [Array<Hash<Integer, Integer, Array<Numeric>>>] intersections
+      # @return [Array<Hash<Symbol, Numeric>>] intersections
       def intersections(min_value)
         values = []
 

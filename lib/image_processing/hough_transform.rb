@@ -27,7 +27,20 @@ module ImageProcessing
         theta_end = (Math::PI / 2) - theta_res
         @theta_sequence = (theta_start..theta_end).step(theta_res).to_a
 
+        # Precompute theta values
+        theta_values
+
         @theta_sequence
+      end
+
+      def theta_values
+        return @theta_values if @theta_values
+
+        @theta_values = theta_sequence.each_with_object({}) do |theta, hash|
+          hash[theta] = { sin: Math.sin(theta), cos: Math.cos(theta) }
+        end
+
+        @theta_values
       end
 
       def rho_sequence
@@ -105,12 +118,12 @@ module ImageProcessing
 
       image.non_zero_pixels.each do |pixel|
         accumulator.theta_sequence.each do |theta|
-          rho = pixel[:x] * Math.cos(theta) + pixel[:y] * Math.sin(theta)
+          rho = pixel[:x] * accumulator.theta_values[theta][:cos] + pixel[:y] * accumulator.theta_values[theta][:sin]
           accumulator.write(theta, rho)
         end
       end
 
-      # accumulator.to_image.write_to_file('accumulator.jpg')
+      accumulator.to_image.write_to_file('accumulator.jpg')
 
       accumulator.intersections(accumulator.max_value * options[:threshold] / 100.0)
     end

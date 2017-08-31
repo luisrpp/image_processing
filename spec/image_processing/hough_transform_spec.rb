@@ -7,27 +7,38 @@ RSpec.describe ImageProcessing::HoughTransform do
 
   subject { described_class.new(image) }
 
+  # let(:image) do
+  #   Vips::Image.new_from_array [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                               [0, 255, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                               [0, 0, 0, 0, 255, 0, 0, 0, 0, 0],
+  #                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  #                               [0, 0, 0, 0, 0, 0, 0, 0, 255, 0],
+  #                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  # end
+
   let(:image) do
-    Vips::Image.new_from_array [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 255, 0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 255, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0, 255, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    img = Vips::Image.new_from_file('samples/lena.jpg')
+    img = img.to_greyscale
+    img = ImageProcessing::Morphology.gradient(img)
+    img = img.threshold(img.percent(90))
+    # img.write_to_file('gradient.jpg')
+    img
   end
 
   describe '#find_lines' do
     it 'find lines in an image' do
-      lines = subject.find_lines(theta_res: Math::PI / 180, rho_res: 10.0, threshold: 100)
+      # lines = subject.find_lines(theta_res: Math::PI / 180, rho_res: 10.0, threshold: 100)
+      #
+      # expect(lines.size).to eq(1)
+      # expect(lines[0][:rho]).to eq(0.0)
+      # expect(lines[0][:theta]).to eq(-0.7853981633974483)
+      # expect(lines[0][:value]).to eq(3)
 
-      expect(lines.size).to eq(1)
-      expect(lines[0][:rho]).to eq(0.0)
-      expect(lines[0][:theta]).to eq(-0.7853981633974483)
-      expect(lines[0][:value]).to eq(3)
+      puts subject.find_lines(theta_res: Math::PI / 540, rho_res: 0.5, threshold: 100)
     end
   end
 end

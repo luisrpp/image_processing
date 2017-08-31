@@ -2,6 +2,8 @@
 
 require 'matrix'
 
+# require 'ruby-prof'
+
 module ImageProcessing
   # Hough Transform implementation.
   class HoughTransform
@@ -11,13 +13,15 @@ module ImageProcessing
 
     # Generates the Accumulator Matrix.
     class Accumulator
-      attr_reader :theta_res, :rho_res, :matrix
+      attr_reader :theta_res, :theta_size, :rho_res, :rho_size, :matrix
 
       def initialize(image, theta_res, rho_res)
         @image = image
         @theta_res = theta_res
-        @rho_res = rho_res
-        @matrix = Matrix.zero(rho_sequence.size, theta_sequence.size).to_a
+        @theta_size = theta_sequence.size
+        @rho_res = 1.0 / rho_res
+        @rho_size = rho_sequence.size
+        @matrix = Matrix.zero(@rho_size, @theta_size).to_a
       end
 
       def theta_sequence
@@ -25,22 +29,11 @@ module ImageProcessing
 
         theta_start = -Math::PI / 2
         theta_end = (Math::PI / 2) - theta_res
-        @theta_sequence = (theta_start..theta_end).step(theta_res).to_a
-
-        # Precompute theta values
-        theta_values
-
-        @theta_sequence
-      end
-
-      def theta_values
-        return @theta_values if @theta_values
-
-        @theta_values = theta_sequence.each_with_object({}) do |theta, hash|
-          hash[theta] = { sin: Math.sin(theta), cos: Math.cos(theta) }
+        @theta_sequence = (theta_start..theta_end).step(theta_res).to_a.map do |theta|
+          { value: theta, sin: Math.sin(theta), cos: Math.cos(theta) }
         end
 
-        @theta_values
+        @theta_sequence
       end
 
       def rho_sequence
@@ -49,14 +42,14 @@ module ImageProcessing
         diagonal = Math.sqrt((@image.width**2) + (@image.height**2)).ceil
         rho_start = -diagonal
         rho_end = diagonal
-        @rho_sequence = (rho_start..rho_end).step(1.0 / rho_res).to_a
+        @rho_sequence = (rho_start..rho_end).step(rho_res).to_a
 
         @rho_sequence
       end
 
       def write(theta, rho)
-        rho_index = find_sequence_index(rho_sequence, rho)
-        theta_index = find_sequence_index(theta_sequence, theta)
+        rho_index = find_sequence_index(rho_size, rho_res, rho)
+        theta_index = find_sequence_index(theta_size, theta_res, theta[:value])
 
         matrix[rho_index][theta_index] += 1
       end
@@ -71,7 +64,7 @@ module ImageProcessing
 
         matrix.each_with_index do |row, i|
           row.each_with_index do |value, j|
-            values << { rho: rho_sequence[i], theta: theta_sequence[j], value: value } unless value < min_value
+            values << { rho: rho_sequence[i], theta: theta_sequence[j][:value], value: value } unless value < min_value
           end
         end
 
@@ -99,9 +92,8 @@ module ImageProcessing
 
       private
 
-      def find_sequence_index(sequence, value)
-        step_size = sequence[1] - sequence[0]
-        (value / step_size.to_f + sequence.size / 2).round
+      def find_sequence_index(sequence_size, step_size, value)
+        (value / step_size + sequence_size / 2).round
       end
     end
 
@@ -116,14 +108,21 @@ module ImageProcessing
 
       accumulator = Accumulator.new(image, options[:theta_res], options[:rho_res])
 
+      # RubyProf.start
+
       image.non_zero_pixels.each do |pixel|
         accumulator.theta_sequence.each do |theta|
-          rho = pixel[:x] * accumulator.theta_values[theta][:cos] + pixel[:y] * accumulator.theta_values[theta][:sin]
+          rho = pixel[:x] * theta[:cos] + pixel[:y] * theta[:sin]
           accumulator.write(theta, rho)
         end
       end
 
-      accumulator.to_image.write_to_file('accumulator.jpg')
+      # result = RubyProf.stop
+      # report = File.open('report.html', 'w')
+      # printer = RubyProf::GraphHtmlPrinter.new(result)
+      # printer.print(report, min_percent: 2)
+
+      # accumulator.to_image.write_to_file('accumulator.jpg')
 
       accumulator.intersections(accumulator.max_value * options[:threshold] / 100.0)
     end

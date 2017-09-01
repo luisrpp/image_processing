@@ -100,9 +100,7 @@ module ImageProcessing
       def rho_range
         @rho_range ||= lambda do
           diagonal = Math.sqrt((@image.width**2) + (@image.height**2)).ceil
-          rho_start = -diagonal
-          rho_end = diagonal
-          (rho_start..rho_end).step(@rho_res).to_a
+          (-diagonal..diagonal).step(@rho_res).to_a
         end.call
       end
 

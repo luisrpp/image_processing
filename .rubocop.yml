@@ -5,6 +5,14 @@ AllCops:
 Metrics/LineLength:
   Max: 120
 
+Metrics/AbcSize:
+  Exclude:
+    - "lib/image_processing/hough_transform.rb"
+
+Metrics/MethodLength:
+  Exclude:
+    - "lib/image_processing/hough_transform.rb"
+
 Metrics/ModuleLength:
   Exclude:
     - "**/*_spec.rb"

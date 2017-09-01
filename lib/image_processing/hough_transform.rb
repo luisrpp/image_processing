@@ -3,7 +3,7 @@
 require 'matrix'
 
 module ImageProcessing
-  # Hough Transform implementation.
+  # Hough Transform algorithm.
   class HoughTransform
     using ImageProcessing::ImageRefinements
 

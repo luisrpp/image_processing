@@ -53,11 +53,14 @@ module ImageProcessing
 
         @matrix.each_with_index do |row, i|
           row.each_with_index do |value, j|
-            values << { rho: rho_range[i], theta: theta_values[j][:value] } unless value < threshold
+            next if value < threshold
+            values << { rho: rho_range[i],
+                        theta: theta_values[j][:value],
+                        intersections: value }
           end
         end
 
-        values.sort { |a, b| b[:value] <=> a[:value] }
+        values.sort { |a, b| b[:intersections] <=> a[:intersections] }
       end
 
       # Maximum value in the accumulator matrix.

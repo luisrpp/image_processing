@@ -3,7 +3,7 @@
 module ImageProcessing
   # Image Refinements
   module ImageRefinements
-    refine Vips::Image do
+    refine Vips::Image do # rubocop:disable Metrics/BlockLength
       # Converts the image to greyscale.
       #
       # @return [Vips::Image] greyscale image
@@ -42,6 +42,30 @@ module ImageProcessing
         else
           raise ImageProcessing::ImageProcessingError, 'Invalid threshold type'
         end
+      end
+
+      # Draw lines in the image.
+      #
+      # @param ink [Float|Array<Float>] pixel value
+      # @param lines [Array<Hash<Symbol, Float>>] list of lines with theta and rho values
+      #
+      # @return [Vips::Image] image with the lines
+      def draw_lines(ink, lines)
+        image = self
+
+        lines.each do |line|
+          a = Math.cos(line[:theta])
+          b = Math.sin(line[:theta])
+          x0 = b * line[:rho]
+          y0 = a * line[:rho]
+          x1 = (x0 + 1000 * a).round
+          y1 = (y0 + 1000 * -b).round
+          x2 = (x0 - 1000 * a).round
+          y2 = (y0 - 1000 * -b).round
+          image = image.draw_line(ink, x1, y1, x2, y2)
+        end
+
+        image
       end
     end
   end

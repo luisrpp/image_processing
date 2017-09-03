@@ -50,4 +50,27 @@ RSpec.describe ImageProcessing::ImageRefinements do
       end
     end
   end
+
+  describe '#draw_lines' do
+    subject(:image) do
+      Vips::Image.new_from_array([[0.0, 0.0, 0.0],
+                                  [0.0, 0.0, 0.0],
+                                  [0.0, 0.0, 0.0]])
+    end
+
+    let(:lines) do
+      [{ rho: 0.0, theta: -1.5707963267948966 },
+       { rho: -2.0, theta: -1.5707963267948966 }]
+    end
+
+    let(:result) do
+      [[[255.0], [0.0], [255.0]],
+       [[255.0], [0.0], [255.0]],
+       [[255.0], [0.0], [255.0]]]
+    end
+
+    it 'draw two lines' do
+      expect(image.draw_lines(255.0, lines).to_a).to eq(result)
+    end
+  end
 end

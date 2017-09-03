@@ -2,9 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ImageProcessing::ImageRefinements do
-  using ImageProcessing::ImageRefinements
-
+RSpec.describe Vips::Image do
   subject(:image) { Vips::Image.new_from_file('samples/lena.jpg') }
 
   describe '#to_greyscale' do

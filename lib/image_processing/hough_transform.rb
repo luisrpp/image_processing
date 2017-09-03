@@ -5,8 +5,6 @@ require 'matrix'
 module ImageProcessing
   # Hough Transform algorithm.
   class HoughTransform
-    using ImageProcessing::ImageRefinements
-
     attr_reader :image
 
     # Generates the Accumulator Matrix.

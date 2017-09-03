@@ -8,12 +8,12 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Exclude:
     - "lib/image_processing/hough_transform.rb"
-    - "lib/image_processing/image_refinements.rb"
+    - "lib/image_processing/image.rb"
 
 Metrics/MethodLength:
   Exclude:
     - "lib/image_processing/hough_transform.rb"
-    - "lib/image_processing/image_refinements.rb"
+    - "lib/image_processing/image.rb"
 
 Metrics/ModuleLength:
   Exclude:

@@ -3,8 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe ImageProcessing::HoughTransform do
-  using ImageProcessing::ImageRefinements
-
   subject { described_class.new(image) }
 
   describe '#find_lines' do

@@ -135,18 +135,23 @@ module ImageProcessing
       default_options = { theta_res: Math::PI / 180, rho_res: 1.0, threshold: 80 }
       options = default_options.merge(options)
 
-      accumulator = Accumulator.new(image, options[:theta_res], options[:rho_res])
+      @accumulator = Accumulator.new(image, options[:theta_res], options[:rho_res])
 
       image.non_zero_pixels.each do |pixel|
-        accumulator.theta_values.each do |theta|
+        @accumulator.theta_values.each do |theta|
           rho = pixel[:x] * theta[:cos] + pixel[:y] * theta[:sin]
-          accumulator.write(theta, rho)
+          @accumulator.write(theta, rho)
         end
       end
 
-      accumulator.to_image.write_to_file(options[:output_matrix]) if options[:output_matrix]
+      @accumulator.intersections(@accumulator.max_value * options[:threshold] / 100.0)
+    end
 
-      accumulator.intersections(accumulator.max_value * options[:threshold] / 100.0)
+    # The accumulator matrix image.
+    #
+    # @return [Vips::Image] accumulator matrix image
+    def accumulator_image
+      @accumulator&.to_image
     end
 
     private

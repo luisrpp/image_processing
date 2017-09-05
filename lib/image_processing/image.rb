@@ -52,15 +52,17 @@ module Vips
     def draw_lines(ink, lines)
       image = self
 
+      delta = size[0] * size[1]
+
       lines.each do |line|
         a = Math.cos(line[:theta])
         b = Math.sin(line[:theta])
         x0 = b * line[:rho]
         y0 = a * line[:rho]
-        x1 = (x0 + size[0] * size[1] * a).round
-        y1 = (y0 + size[0] * size[1] * -b).round
-        x2 = (x0 - size[0] * size[1] * a).round
-        y2 = (y0 - size[0] * size[1] * -b).round
+        x1 = (x0 + delta * a).round
+        y1 = (y0 + delta * -b).round
+        x2 = (x0 - delta * a).round
+        y2 = (y0 - delta * -b).round
         image = image.draw_line(ink, x1, y1, x2, y2)
       end
 

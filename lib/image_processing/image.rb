@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rmagick'
+
 module Vips
   # Image class (new methods)
   class Image
@@ -67,6 +69,13 @@ module Vips
       end
 
       image
+    end
+
+    # To visualize images in Jupyter.
+    def display
+      @fname ||= "/tmp/vips_image_#{Time.now.to_i}.jpg"
+      write_to_file(@fname)
+      IRuby.display(Magick::Image.read(@fname)[0])
     end
   end
 end

@@ -1,2 +1,2 @@
-gem install cztop iruby rmagick
+gem install cztop iruby
 iruby register --force

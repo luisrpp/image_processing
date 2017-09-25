@@ -36,11 +36,43 @@
         <div class="reveal">
             <div class="slides">
                 <section>
-                    <h2>Processamento de Imagens<br> em Ruby</h2>
+                    <h1>Processamento de Imagens em <font color="#f08">Ruby</font></h1>
                     <p>
-                        <small>Por <a href="http://github.com/luisrpp">Luis Roberto P. de Paula</a> / <a href="http://twitter.com/luisrpp">@luisrpp</a></small>
+                        <small>Por <a href="http://github.com/luisrpp">Luis Roberto P. Paula</a> / <a href="http://twitter.com/luisrpp">@luisrpp</a></small>
                     </p>
                 </section>
+
+                <section>
+                    <h2><font color="#0af">Fundamentos</font></h2>
+                </section>
+
+                <section>
+                    <section>
+                        <h3><font color="#0af">Imagens Digitais</font></h3>
+
+                        <p style="text-align: left">Definidas por uma função bidimensional de intensidade da luz $f(x, y)$, onde:</p>
+                        <ul>
+                            <li>$(x, y)$ denotam as coordenadas espaciais</li>
+                            <li>o valor de $f$ em qualquer ponto $(x, y)$ é proporcional ao brilho da imagem naquele ponto</li>
+                        </ul>
+                    </section>
+                </section> 
+
+<!--                 <section>
+                    <section>
+                        <h3><font color="#0af">Processamento de Imagens Digitais</font></h3>
+
+                        <p>Refere-se ao processamento de imagens de bidimensionais por um computador digital.</p>
+                    </section>
+
+                    <section style="text-align: left">
+                        <h3>Áreas de aplicação</h3>
+                        <ul>
+                            <li class="fragment">Facilitar a interpretação de imagens por pessoas</li>
+                            <li class="fragment">Permitir o armazenamento, transmissão e representação de informação visual para percepção por máquinas</li>
+                        </ul>
+                    </section>
+                </section> -->
             </div>
         </div>
 
@@ -57,6 +89,11 @@
 
                 transition: 'slide', // none/fade/slide/convex/concave/zoom
 
+                math: {
+                    mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+                    config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+                },
+
                 // More info https://github.com/hakimel/reveal.js#dependencies
                 dependencies: [
                     { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -64,7 +101,8 @@
                     { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                     { src: 'plugin/zoom-js/zoom.js', async: true },
-                    { src: 'plugin/notes/notes.js', async: true }
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/math/math.js', async: true }
                 ]
             });
         </script>

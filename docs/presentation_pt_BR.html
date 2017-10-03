@@ -62,8 +62,17 @@
                     <section>
                         <h4>Convenção dos eixos para representação de imagens digitais</h4>
 
-                        <div>
-                            <img data-src="images/digital_image.png">
+                        <div style="float: left">
+                            <img style="border: none;" height="420" data-src="images/digital_image.png">
+                        </div>
+
+                        <div style="float: right; text-align: left; font-size: 25px">
+                            <p>Propriedades:</p>
+                            <ul>
+                                <li><b>Largura:</b> 640px</li>
+                                <li><b>Altura:</b> 480px</li>
+                                <li><b>Exemplo:</b> $f(366, 188) = 248$</li>
+                            </ul>
                         </div>
                     </section>
 
@@ -79,41 +88,76 @@
                     <section>
                         <h5>Quantização - número de níveis de cinza</h5>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Precisão</th>
-                                    <th>Mínimo</th>
-                                    <th>Máximo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>$2^{1}$</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>$2^{8}$</td>
-                                    <td>0</td>
-                                    <td>255</td>
-                                </tr>
-                                <tr>
-                                    <td>$2^{16}$</td>
-                                    <td>0</td>
-                                    <td>65535</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div style="float: left">
+                            <table style="font-size: 32px">
+                                <thead>
+                                    <tr>
+                                        <th>Precisão</th>
+                                        <th>Mínimo</th>
+                                        <th>Máximo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>$2^{1}$</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>$2^{2}$</td>
+                                        <td>0</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>$2^{3}$</td>
+                                        <td>0</td>
+                                        <td>7</td>
+                                    </tr>
+                                    <tr>
+                                        <td>$2^{4}$</td>
+                                        <td>0</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>$2^{5}$</td>
+                                        <td>0</td>
+                                        <td>31</td>
+                                    </tr>
+                                    <tr>
+                                        <td>$2^{6}$</td>
+                                        <td>0</td>
+                                        <td>63</td>
+                                    </tr>
+                                    <tr>
+                                        <td>$2^{7}$</td>
+                                        <td>0</td>
+                                        <td>127</td>
+                                    </tr>
+                                    <tr>
+                                        <td>$2^{8}$</td>
+                                        <td>0</td>
+                                        <td>255</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                        <div><img data-src="images/grey_level.png"></div>
+                        <div style="float: right">
+                            <img style="border: none" width="480" data-src="images/grey_level.png">
+                        </div>
+                    </section>
+
+                    <section>
+                        <div>
+                            <img src="images/lena_quantization.gif">
+                        </div>
                     </section>
 
                     <section>
                         <h5>Resolução Espacial</h5>
 
                         <div>
-                            <img data-src="images/spatial_resolution.png">
+                            <img style="border: none" data-src="images/spatial_resolution.png">
                         </div>
                     </section>
                 </section> 

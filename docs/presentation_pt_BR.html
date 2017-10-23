@@ -151,6 +151,15 @@
                         <div>
                             <img src="images/lena_quantization.png">
                         </div>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Playboy de Novembro de 1972</li>
+                                <li>Utilizada em pesquisa sobre compressão de imagens</li>
+                                <li>Ideal para diversos testes em processamento de imagens</li>
+                                <li>Convidada para 50a edição do Imaging Science and Technology</li>
+                            </ul>
+                        </aside>
                     </section>
 
                     <section>
@@ -208,7 +217,7 @@
                     <section>
                         <h3><font color="#0af">Processamento de Imagens Digitais</font></h3>
 
-                        <p class="fragment">São operações realizadas em imagem digitais.</p>
+                        <p class="fragment">São operações realizadas em imagens digitais.</p>
                     </section>
 
                     <section>
@@ -381,9 +390,50 @@
                             <li>APIs para <i>C</i> e <i>C++</i>, com bindings para <i>Pyton</i>, <i>Ruby</i>, <i>PHP</i>, <i>GO</i>, <i>Lua</i> e linha de comando</li>
                         </ul>
                     </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2><font color="#0af">Utilizando o Ruby-Vips</font></h2>
+
+                        <p align="left">Será utilizado nesta apresentação o binding para <font color="#f08">Ruby</font> da <a href="https://github.com/jcupitt/ruby-vips">libvips</a>.</p>
+                    </section>
 
                     <section>
-                        <p>Utilizaremos o binding para <font color="#f08">Ruby</font> da <a href="https://github.com/jcupitt/ruby-vips">libvips</a> nesta apresentação</p>
+                        <h3>Carregando uma Imagem</h3>
+
+                        <pre><code class="ruby" data-trim contenteditable>
+                        require 'vips'
+
+                        # A partir de um arquivo
+                        image = Vips::Image.new_from_file('my_image.png')
+
+                        # A partir de um array
+                        image = Vips::Image.new_from_array([[50.0, 60.0, 70.0],
+                                                            [100.0, 150.0, 190.0],
+                                                            [200.0, 220.0, 255.0]])
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Operações básicas</h3>
+
+                        <p align="left">Adição:</p>
+
+                        <pre><code class="ruby" data-trim contenteditable>
+image_1 = Vips::Image.new_from_array([[1.0, 1.0, 1.0],
+                                      [1.0, 1.0, 1.0],
+                                      [1.0, 1.0, 1.0]])
+
+image_2 = Vips::Image.new_from_array([[1.0, 2.0, 3.0],
+                                      [4.0, 5.0, 6.0],
+                                      [7.0, 8.0, 9.0]])
+
+(image_1 + image_2).to_a
+=> [[[2.0], [3.0], [4.0]],
+    [[5.0], [6.0], [7.0]],
+    [[8.0], [9.0], [10.0]]]
+                        </code></pre>
                     </section>
                 </section>
             </div>

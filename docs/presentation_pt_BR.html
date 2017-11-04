@@ -35,294 +35,292 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>
+                <section data-transition="none">
                     <h1>Processamento de Imagens em <font color="#f08">Ruby</font></h1>
                     <p>
                         <small>Por <a href="http://github.com/luisrpp">Luis Roberto P. Paula</a> / <a href="http://twitter.com/luisrpp">@luisrpp</a></small>
                     </p>
                 </section>
 
-                <section>
+                <section data-transition="none">
                     <h2><font color="#0af">Fundamentos</font></h2>
                 </section>
 
-                <section>
-                    <section>
-                        <h3><font color="#0af">Imagens Digitais</font></h3>
+                <section data-transition="none">
+                    <h3><font color="#0af">Imagens Digitais</font></h3>
 
-                        <p style="text-align: left">São definidas por uma função bidimensional de intensidade da luz $f(x, y)$, onde:</p>
+                    <p style="text-align: left">São definidas por uma função bidimensional de intensidade da luz $f(x, y)$, onde:</p>
+                    <ul>
+                        <li>$(x, y)$ denotam as coordenadas espaciais</li>
+                        <li>o valor de $f$ em qualquer ponto $(x, y)$ é proporcional ao brilho da imagem naquele ponto</li>
+                    </ul>
+
+                    <p style="text-align: left">Os pontos de uma imagem são denominados <b><i>pixels</i></b>.</p>
+                </section>
+
+                <section data-transition="none">
+                    <h4>Convenção dos eixos para representação de imagens digitais</h4>
+
+                    <div style="float: left">
+                        <img style="border: none;" height="420" data-src="images/digital_image.png">
+                    </div>
+
+                    <div style="float: right; text-align: left; font-size: 25px">
+                        <p>Propriedades:</p>
                         <ul>
-                            <li>$(x, y)$ denotam as coordenadas espaciais</li>
-                            <li>o valor de $f$ em qualquer ponto $(x, y)$ é proporcional ao brilho da imagem naquele ponto</li>
+                            <li><b>Largura:</b> 640px</li>
+                            <li><b>Altura:</b> 480px</li>
+                            <li><b>Exemplo:</b> $f(366, 188) = 248$</li>
                         </ul>
+                    </div>
+                </section>
 
-                        <p style="text-align: left">Os pontos de uma imagem são denominados <b><i>pixels</i></b>.</p>
-                    </section>
+                <section data-transition="none" style="text-align: left">
+                    <h4>Fatores que afetam a qualidade da imagem</h4>
 
-                    <section>
-                        <h4>Convenção dos eixos para representação de imagens digitais</h4>
+                    <ul>
+                        <li>Quantização</li>
+                        <li>Resolução espacial</li>
+                    </ul>
+                </section>
 
-                        <div style="float: left">
-                            <img style="border: none;" height="420" data-src="images/digital_image.png">
-                        </div>
+                <section data-transition="none">
+                    <h5>Quantização - número de níveis de cinza</h5>
 
-                        <div style="float: right; text-align: left; font-size: 25px">
-                            <p>Propriedades:</p>
-                            <ul>
-                                <li><b>Largura:</b> 640px</li>
-                                <li><b>Altura:</b> 480px</li>
-                                <li><b>Exemplo:</b> $f(366, 188) = 248$</li>
-                            </ul>
-                        </div>
-                    </section>
+                    <div style="float: left">
+                        <table style="font-size: 32px">
+                            <thead>
+                                <tr>
+                                    <th>Precisão</th>
+                                    <th>Mínimo</th>
+                                    <th>Máximo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$2^{1}$</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>$2^{2}$</td>
+                                    <td>0</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>$2^{3}$</td>
+                                    <td>0</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>$2^{4}$</td>
+                                    <td>0</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>$2^{5}$</td>
+                                    <td>0</td>
+                                    <td>31</td>
+                                </tr>
+                                <tr>
+                                    <td>$2^{6}$</td>
+                                    <td>0</td>
+                                    <td>63</td>
+                                </tr>
+                                <tr>
+                                    <td>$2^{7}$</td>
+                                    <td>0</td>
+                                    <td>127</td>
+                                </tr>
+                                <tr>
+                                    <td>$2^{8}$</td>
+                                    <td>0</td>
+                                    <td>255</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <section style="text-align: left">
-                        <h4>Fatores que afetam a qualidade da imagem</h4>
+                    <div style="float: right">
+                        <img style="border: none" width="480" data-src="images/grey_level.png">
+                    </div>
+                </section>
 
+                <section data-transition="none">
+                    <div>
+                        <img src="images/lena_quantization.png">
+                    </div>
+
+                    <aside class="notes">
                         <ul>
-                            <li>Quantização</li>
-                            <li>Resolução espacial</li>
+                            <li>Playboy de Novembro de 1972</li>
+                            <li>Utilizada em pesquisa sobre compressão de imagens</li>
+                            <li>Ideal para diversos testes em processamento de imagens</li>
+                            <li>Convidada para 50a edição do Imaging Science and Technology</li>
                         </ul>
-                    </section>
+                    </aside>
+                </section>
 
-                    <section>
-                        <h5>Quantização - número de níveis de cinza</h5>
+                <section data-transition="none">
+                    <h5>Resolução Espacial</h5>
 
-                        <div style="float: left">
-                            <table style="font-size: 32px">
-                                <thead>
-                                    <tr>
-                                        <th>Precisão</th>
-                                        <th>Mínimo</th>
-                                        <th>Máximo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>$2^{1}$</td>
-                                        <td>0</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>$2^{2}$</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>$2^{3}$</td>
-                                        <td>0</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr>
-                                        <td>$2^{4}$</td>
-                                        <td>0</td>
-                                        <td>15</td>
-                                    </tr>
-                                    <tr>
-                                        <td>$2^{5}$</td>
-                                        <td>0</td>
-                                        <td>31</td>
-                                    </tr>
-                                    <tr>
-                                        <td>$2^{6}$</td>
-                                        <td>0</td>
-                                        <td>63</td>
-                                    </tr>
-                                    <tr>
-                                        <td>$2^{7}$</td>
-                                        <td>0</td>
-                                        <td>127</td>
-                                    </tr>
-                                    <tr>
-                                        <td>$2^{8}$</td>
-                                        <td>0</td>
-                                        <td>255</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div>
+                        <img style="border: none" data-src="images/spatial_resolution.png">
+                    </div>
+                </section>
 
-                        <div style="float: right">
-                            <img style="border: none" width="480" data-src="images/grey_level.png">
-                        </div>
-                    </section>
-
-                    <section>
-                        <div>
-                            <img src="images/lena_quantization.png">
-                        </div>
-
-                        <aside class="notes">
-                            <ul>
-                                <li>Playboy de Novembro de 1972</li>
-                                <li>Utilizada em pesquisa sobre compressão de imagens</li>
-                                <li>Ideal para diversos testes em processamento de imagens</li>
-                                <li>Convidada para 50a edição do Imaging Science and Technology</li>
-                            </ul>
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h5>Resolução Espacial</h5>
-
-                        <div>
-                            <img style="border: none" data-src="images/spatial_resolution.png">
-                        </div>
-                    </section>
-
-                    <section data-background="images/lincoln_pixel_values.png">
-                        <aside class="notes">
-                            <ul>
-                                <li>Ref: <a href="http://openframeworks.cc/ofBook/chapters/image_processing_computer_vision.html" target="bank">openFrameworks</a></li>
-                            </ul>
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h5>Imagens Coloridas</h5>
-
+                <section data-transition="none" data-background="images/lincoln_pixel_values.png">
+                    <aside class="notes">
                         <ul>
-                            <li><font color="red">R</font><font color="green">G</font><font color="blue">B</font> é o formato mais comum</li>
-                            <li>
-                                Cada pixel possui 3 valores, um para cada canal
-                                <ul>
-                                    <li>Exemplo: $f(x, y) = [255, 50, 33]$</li>
-                                </ul>
-                            <li>
-                                Outros formatos:
-                                <ul>
-                                    <li>YCbCr</li>
-                                    <li>HSV</li>
-                                </ul>
-                            </li>
+                            <li>Ref: <a href="http://openframeworks.cc/ofBook/chapters/image_processing_computer_vision.html" target="bank">openFrameworks</a></li>
                         </ul>
+                    </aside>
+                </section>
 
-                        <aside class="notes">
+                <section data-transition="none">
+                    <h5>Imagens Coloridas</h5>
+
+                    <ul>
+                        <li><font color="red">R</font><font color="green">G</font><font color="blue">B</font> é o formato mais comum</li>
+                        <li>
+                            Cada pixel possui 3 valores, um para cada canal
                             <ul>
-                                <li>O RGB mimetiza o funcionamento do olho humano para a constituição da cor.</li>
+                                <li>Exemplo: $f(x, y) = [255, 50, 33]$</li>
                             </ul>
-                        </aside>
-                    </section>
+                        <li>
+                            Outros formatos:
+                            <ul>
+                                <li>YCbCr</li>
+                                <li>HSV</li>
+                            </ul>
+                        </li>
+                    </ul>
 
-                    <section>
-                        <h5>Exemplo de uma matriz RGB</h5>
-
-                        <div>
-                            <img style="border: none" data-src="images/rgb.png">
-                        </div>
-                    </section>
-                </section> 
-
-                <section>
-                    <section>
-                        <h3><font color="#0af">Processamento de Imagens Digitais</font></h3>
-
-                        <p class="fragment">São operações realizadas em imagens digitais.</p>
-                    </section>
-
-                    <section>
-                        <h4>Áreas de aplicação</h4>
-
+                    <aside class="notes">
                         <ul>
-                            <li>Facilitar a interpretação de imagens por pessoas</li>
-                            <li>Permitir o armazenamento, transmissão e representação de informação visual para percepção por máquinas</li>
+                            <li>O RGB mimetiza o funcionamento do olho humano para a constituição da cor.</li>
                         </ul>
-                    </section>
+                    </aside>
+                </section>
 
-                    <section>
-                        <h4>Primeiras aplicações</h4>
+                <section data-transition="none">
+                    <h5>Exemplo de uma matriz RGB</h5>
 
-                        <img style="border: none" data-src="images/historical_01.jpg">
+                    <div>
+                        <img style="border: none" data-src="images/rgb.png">
+                    </div>
+                </section>
 
-                        <p>Melhoramento de imagens digitalizadas para jornais, enviadas por cabo submarino, de Londres para Nova York, no início da década de 1920.</p>
+                <section data-transition="none">
+                    <h3><font color="#0af">Processamento de Imagens Digitais</font></h3>
 
-                        <aside class="notes">
-                            <ul>
-                                <li>Sistema Bartlane de transmissão de imagens</li>
-                                <li>Redução do tempo de mais de uma semana para menos de 3 horas</li>
-                                <li>Imagem em cinco níveis de cinza</li>
-                                <li>Dados decodificados eram enviados para uma impressora telegráfica</li>
-                            <ul>
-                        </aside>
-                    </section>
+                    <p class="fragment">São operações realizadas em imagens digitais.</p>
+                </section>
 
-                    <section>
-                        <h4>Melhorias no Processo</h4>
+                <section data-transition="none">
+                    <h4>Áreas de aplicação</h4>
 
-                        <div>
-                            <img style="border: none" data-src="images/historical_02.jpg">
-                            <img style="border: none" data-src="images/historical_03.jpg">
-                        </div>
+                    <ul>
+                        <li>Facilitar a interpretação de imagens por pessoas</li>
+                        <li>Permitir o armazenamento, transmissão e representação de informação visual para percepção por máquinas</li>
+                    </ul>
+                </section>
 
-                        <p>
-                            No final da mesma década, em 1929, o número de níveis de cinza das imagens foram aumentados de 5 para 15.
+                <section data-transition="none">
+                    <h4>Primeiras aplicações</h4>
+
+                    <img style="border: none" data-src="images/historical_01.jpg">
+
+                    <p>Melhoramento de imagens digitalizadas para jornais, enviadas por cabo submarino, de Londres para Nova York, no início da década de 1920.</p>
+
+                    <aside class="notes">
+                        <ul>
+                            <li>Sistema Bartlane de transmissão de imagens</li>
+                            <li>Redução do tempo de mais de uma semana para menos de 3 horas</li>
+                            <li>Imagem em cinco níveis de cinza</li>
+                            <li>Dados decodificados eram enviados para uma impressora telegráfica</li>
+                        <ul>
+                    </aside>
+                </section>
+
+                <section data-transition="none">
+                    <h4>Melhorias no Processo</h4>
+
+                    <div>
+                        <img style="border: none" data-src="images/historical_02.jpg">
+                        <img style="border: none" data-src="images/historical_03.jpg">
+                    </div>
+
+                    <p>
+                        No final da mesma década, em 1929, o número de níveis de cinza das imagens foram aumentados de 5 para 15.
+                    </p>
+
+                    <aside class="notes">
+                        <ul>
+                            <li>Melhorias no processo de impressão e distribuição do brilho</li>
+                        <ul>
+                    </aside>
+                </section>
+
+                <section data-transition="none">
+                    <p>Melhorias nos métodos de processamento para transmissão de imagens continuaram a ser feitos ao longo dos 35 anos
+                    que seguiram...</p>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%;">
+                        <img height="400" style="border: none" data-src="images/moon.jpg">
+                    </div>
+
+                    <div style="float: right; width: 50%;">
+                        <p style="font-size: 37px; text-align: left;">
+                            Até que a combinação do surgimento dos <font color="#0af"><b>computadores digitais de grande porte</b></font> com o
+                            <font color="#0af"><b>programa espacial</b></font> chamam a atenção para o potencial dos conceitos de processamento de imagem.
                         </p>
+                    </div>
 
-                        <aside class="notes">
-                            <ul>
-                                <li>Melhorias no processo de impressão e distribuição do brilho</li>
-                            <ul>
-                        </aside>
-                    </section>
+                    <aside class="notes">
+                        <ul>
+                            <li>Imagem de 31 de Julho de 1964</li>
+                            <li>Transmitida pelo Ranger 7</li>
+                            <li>Foto tirada 17 minutos antes da chegada à superficie da Lua</li>
+                        </ul>
+                    </aside>
+                </section>
 
-                    <section>
-                        <p>Melhorias nos métodos de processamento para transmissão de imagens continuaram a ser feitos ao longo dos 35 anos
-                        que seguiram...</p>
-                    </section>
+                <section data-transition="none">
+                    <h4>Exemplos</h4>
+                </section>
 
-                    <section>
-                        <div style="float: left; width: 50%;">
-                            <img height="400" style="border: none" data-src="images/moon.jpg">
-                        </div>
+                <section data-transition="none">
+                    <h4>Redução de ruído</h4>
+                    <div>
+                        <img style="border: none" data-src="images/noise_reduction.jpg">
+                    </div>
+                </section>
 
-                        <div style="float: right; width: 50%;">
-                            <p style="font-size: 37px; text-align: left;">
-                                Até que a combinação do surgimento dos <font color="#0af"><b>computadores digitais de grande porte</b></font> com o
-                                <font color="#0af"><b>programa espacial</b></font> chamam a atenção para o potencial dos conceitos de processamento de imagem.
-                            </p>
-                        </div>
+                <section data-transition="none">
+                    <h4>Detecção de faces</h4>
+                    <div>
+                        <img style="border: none" data-src="images/face-detection.png">
+                    </div>
+                </section>
 
-                        <aside class="notes">
-                            <ul>
-                                <li>Imagem de 31 de Julho de 1964</li>
-                                <li>Transmitida pelo Ranger 7</li>
-                                <li>Foto tirada 17 minutos antes da chegada à superficie da Lua</li>
-                            </ul>
-                        </aside>
-                    </section>
+                <section data-transition="none">
+                    <h4>Detecção automática de placas de veículos</h4>
+                    <div>
+                        <img style="border: none" data-src="images/plate.jpg">
+                    </div>
+                </section>
 
-                    <section>
-                        <h4>Exemplos</h4>
-                    </section>
+                <section data-transition="none">
+                    <h4>Segmentação de tumores cerebrais</h4>
+                    <div>
+                        <img style="border: none" data-src="images/brain.png">
+                    </div>
+                </section>
 
-                    <section>
-                        <h4>Redução de ruído</h4>
-                        <div>
-                            <img style="border: none" data-src="images/noise_reduction.jpg">
-                        </div>
-                    </section>
-
-                    <section>
-                        <h4>Detecção de faces</h4>
-                        <div>
-                            <img style="border: none" data-src="images/face-detection.png">
-                        </div>
-                    </section>
-
-                    <section>
-                        <h4>Detecção automática de placas de veículos</h4>
-                        <div>
-                            <img style="border: none" data-src="images/plate.jpg">
-                        </div>
-                    </section>
-
-                    <section>
-                        <h4>Segmentação de tumores cerebrais</h4>
-                        <div>
-                            <img style="border: none" data-src="images/brain.png">
-                        </div>
-                    </section>
-
+                <section data-transition="none">
                     <section data-transition="none">
                         <h4>Passos fundamentais</h4>
 
@@ -445,74 +443,103 @@
                     </section>
                 </section>
 
-                <section>
-                    <section>
-                        <h2><font color="#0af">Bibliotecas</font></h2>
-                    </section>
+                <section data-transition="none">
+                    <h2><font color="#0af">O Problema</font></h2>
 
-                    <section>
-                        <h3><a href="https://opencv.org/">OpenCV</a></h3>
-
-                        <ul style="font-size: 37px;">
-                            <li>Open Source Computer Vision Library</li>
-                            <li>Desenvolvida originalmente pela Intel</li>
-                            <li>Interfaces para <i>C</i>, <i>C++</i>, <i>Python</i> e <i>Java</i></li>
-                            <li>Wrappers para outras linguagens, como <i>Ruby</i>, <i>.Net</i>, <i>Go</i></li>
-                            <li>Cross-platform (incluindo Android e iOS)</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h3><a href="https://itk.org/">ITK</a></h3>
-
-                        <ul style="font-size: 37px;"">
-                            <li>Insight Segmentation and Registration Toolkit</li>
-                            <li>Open-source</li>
-                            <li>Desenvolvido em <i>C++</i>, com wrappers para outras linguagens</li>
-                            <li>Comum para segmentação de imagens médicas</li>
-                            <li>Suporte para imagens multidimensionais</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h3><a href="https://www.imagemagick.org">ImageMagick</a></h3>
-
-                        <ul style="font-size: 37px;"">
-                            <li>Utilizada para criar, editar, compor ou converter imagens bitmap</li>
-                            <li>Tipicamente utilizada via linha de comando</li>
-                            <li>
-                                Bindings para diversas linguagens:
-                                <ul>
-                                    <li>Ruby (<a href="https://rmagick.github.io/">RMagick</a>, <a href="https://github.com/minimagick/minimagick">MiniMagick</a>)</li>
-                                    <li>Python (<a href="https://www.imagemagick.org/download/python/">PythonMagick</a>)</li>
-                                    <li>Go (<a href="https://github.com/gographics/imagick">Go Imagick</a>)</li>
-                                    <li>Java (<a href="http://www.jmagick.org/">JMagick</a>)</li>
-                                    <li>e muitas <a href="http://www.imagemagick.org/script/develop.php">outras</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h3><a href="http://jcupitt.github.io/libvips">VIPS</a></h3>
-
-                        <ul style="font-size: 37px;"">
-                            <li>Biblioteca para processamento de imagens 2D</li>
-                            <li>Baixo consumo de memória e rápida, especialmente em máquinas com mais de uma CPU</li>
-                            <li>Thread-safe (operações em imagens geram novas imagens)</li>
-                            <li>APIs para <i>C</i> e <i>C++</i>, com bindings para <i>Pyton</i>, <i>Ruby</i>, <i>PHP</i>, <i>GO</i>, <i>Lua</i> e linha de comando</li>
-                        </ul>
-                    </section>
+                    <p>Como estudo de caso, iremos desenvolver uma solução para detecção de retas em
+                        imagens.</p>
                 </section>
 
-                <section>
-                    <section>
-                        <h2><font color="#0af">Utilizando o Ruby-Vips</font></h2>
+                <section data-transition="none">
+                    <h3>Quantas retas possui esta imagem?</h3>
 
-                        <p align="left">Será utilizado nesta apresentação o binding para <font color="#f08">Ruby</font> da <a href="https://github.com/jcupitt/ruby-vips">libvips</a>.</p>
+                    <div>
+                        <img style="border: none" height="450" data-src="images/building.jpg">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h3>E esta outra?</h3>
+
+                    <div>
+                        <img style="border: none" height="450" data-src="images/chessboard.png">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h3>Motivação</h3>
+
+                    <p>Identificar formas em imagens pode nos ajudar na detecção de objetos de interesse.</p>
+                </section>
+
+                <section data-transition="none">
+                    <h2><font color="#0af">Bibliotecas</font></h2>
+                </section>
+
+                <section data-transition="none">
+                    <h3><a href="https://opencv.org/">OpenCV</a></h3>
+
+                    <ul style="font-size: 37px;">
+                        <li>Open Source Computer Vision Library</li>
+                        <li>Desenvolvida originalmente pela Intel</li>
+                        <li>Interfaces para <i>C</i>, <i>C++</i>, <i>Python</i> e <i>Java</i></li>
+                        <li>Wrappers para outras linguagens, como <i>Ruby</i>, <i>.Net</i>, <i>Go</i></li>
+                        <li>Cross-platform (incluindo Android e iOS)</li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <h3><a href="https://itk.org/">ITK</a></h3>
+
+                    <ul style="font-size: 37px;">
+                        <li>Insight Segmentation and Registration Toolkit</li>
+                        <li>Open-source</li>
+                        <li>Desenvolvido em <i>C++</i>, com wrappers para outras linguagens</li>
+                        <li>Comum para segmentação de imagens médicas</li>
+                        <li>Suporte para imagens multidimensionais</li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <h3><a href="https://www.imagemagick.org">ImageMagick</a></h3>
+
+                    <ul style="font-size: 37px;">
+                        <li>Utilizada para criar, editar, compor ou converter imagens bitmap</li>
+                        <li>Tipicamente utilizada via linha de comando</li>
+                        <li>
+                            Bindings para diversas linguagens:
+                            <ul>
+                                <li>Ruby (<a href="https://rmagick.github.io/">RMagick</a>, <a href="https://github.com/minimagick/minimagick">MiniMagick</a>)</li>
+                                <li>Python (<a href="https://www.imagemagick.org/download/python/">PythonMagick</a>)</li>
+                                <li>Go (<a href="https://github.com/gographics/imagick">Go Imagick</a>)</li>
+                                <li>Java (<a href="http://www.jmagick.org/">JMagick</a>)</li>
+                                <li>e muitas <a href="http://www.imagemagick.org/script/develop.php">outras</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <h3><a href="http://jcupitt.github.io/libvips">VIPS (libvips)</a></h3>
+
+                    <ul style="font-size: 37px;">
+                        <li>Biblioteca para processamento de imagens 2D</li>
+                        <li>Baixo consumo de memória e rápida, especialmente em máquinas com mais de uma CPU</li>
+                        <li>Thread-safe (operações em imagens geram novas imagens)</li>
+                        <li>APIs para <i>C</i> e <i>C++</i>, com bindings para <i>Pyton</i>, <i>Ruby</i>, <i>PHP</i>, <i>GO</i>, <i>Lua</i> e linha de comando</li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <section data-transition="none">
+                        <h2><font color="#0af">Ruby-Vips</font></h2>
+
+                        <p>
+                            Utilizaremos o binding para <font color="#f08">Ruby</font> da <a href="https://github.com/jcupitt/ruby-vips">libvips</a>.
+                        </p>
                     </section>
 
-                    <section>
+                    <section data-transition="none">
                         <h3>Carregando uma Imagem</h3>
 
                         <pre><code class="ruby" data-trim contenteditable>
@@ -528,24 +555,71 @@
                         </code></pre>
                     </section>
 
-                    <section>
-                        <h3>Operações básicas</h3>
-
-                        <p align="left">Adição:</p>
+                    <section data-transition="none">
+                        <h3>Propriedades da Imagem</h3>
 
                         <pre><code class="ruby" data-trim contenteditable>
-image_1 = Vips::Image.new_from_array([[1.0, 1.0, 1.0],
-                                      [1.0, 1.0, 1.0],
-                                      [1.0, 1.0, 1.0]])
+                        image.filename # ./samples/my_image.jpg
 
-image_2 = Vips::Image.new_from_array([[1.0, 2.0, 3.0],
-                                      [4.0, 5.0, 6.0],
-                                      [7.0, 8.0, 9.0]])
+                        image.size # [512, 512]
+                        image.width  # 512
+                        image.height # 512
 
-(image_1 + image_2).to_a
-=> [[[2.0], [3.0], [4.0]],
-    [[5.0], [6.0], [7.0]],
-    [[8.0], [9.0], [10.0]]]
+                        image.bands # 3
+
+                        image.interpretation # #&lt;Vips::Interpretation srgb&gt;
+                        image.format # #&lt;Vips::BandFormat uchar&gt;
+
+                        image.min # 0.0
+                        image.max # 246.0
+                        </code></pre>
+                    </section>
+
+                    <section data-transition="none">
+                        <h3>Operações básicas</h3>
+
+                        <div style="float: left; width: 50%">
+                            <pre><code class="ruby" data-trim contenteditable>
+                            # Adição
+                            image + 10
+
+                            # Subtração
+                            image - 10
+
+                            # Multiplicação
+                            image * 0
+
+                            # Divisão
+                            image / 255
+                            </code></pre>
+                        </div>
+
+                        <div style="float: right; width: 50%">
+                            <pre><code class="ruby" data-trim contenteditable>
+                            # Adição
+                            image1 + image2
+
+                            # Subtração
+                            image1 - image2
+
+                            # Multiplicação
+                            image1 * image2
+
+                            # Divisão
+                            image1 / image2
+                            </code></pre>
+                        </div>
+                    </section>
+
+                    <section data-transition="none">
+                        <h3>Salvando a Imagem</h3>
+
+                        <pre><code class="ruby" data-trim contenteditable>
+                        # Salva a imagem em um arquivo
+                        image.write_to_file '/tmp/my_image.png'
+
+                        # Escreve a imagem em um buffer de memória
+                        buffer = image.write_to_buffer ".jpg[Q=90]"
                         </code></pre>
                     </section>
                 </section>

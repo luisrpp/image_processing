@@ -444,35 +444,6 @@
                 </section>
 
                 <section data-transition="none">
-                    <h2><font color="#0af">O Problema</font></h2>
-
-                    <p>Como estudo de caso, iremos desenvolver uma solução para detecção de retas em
-                        imagens.</p>
-                </section>
-
-                <section data-transition="none">
-                    <h3>Quantas retas possui esta imagem?</h3>
-
-                    <div>
-                        <img style="border: none" height="450" data-src="images/building.jpg">
-                    </div>
-                </section>
-
-                <section data-transition="none">
-                    <h3>E esta outra?</h3>
-
-                    <div>
-                        <img style="border: none" height="450" data-src="images/chessboard.png">
-                    </div>
-                </section>
-
-                <section data-transition="none">
-                    <h3>Motivação</h3>
-
-                    <p>Identificar formas em imagens pode nos ajudar na detecção de objetos de interesse.</p>
-                </section>
-
-                <section data-transition="none">
                     <h2><font color="#0af">Bibliotecas</font></h2>
                 </section>
 
@@ -622,6 +593,103 @@
                         buffer = image.write_to_buffer ".jpg[Q=90]"
                         </code></pre>
                     </section>
+                </section>
+
+                <section data-transition="none">
+                    <h2><font color="#0af">O Problema</font></h2>
+
+                    <p>Como estudo de caso, iremos desenvolver uma solução para detecção de retas em
+                        imagens.</p>
+                </section>
+
+                <section data-transition="none">
+                    <h3>Quantas retas possui esta imagem?</h3>
+
+                    <div>
+                        <img style="border: none" height="450" data-src="images/building.jpg">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h3>E esta outra?</h3>
+
+                    <div>
+                        <img style="border: none" height="450" data-src="images/chessboard.png">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h3>Motivação</h3>
+
+                    <p>Identificar formas em imagens pode nos ajudar na detecção de objetos de interesse.</p>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Passos para o processamento</font></h3>
+
+                    <ol>
+                        <li class="fragment">Aquisição: uma imagem digital qualquer fornecida</li>
+                        <li class="fragment">Pré-processamento
+                            <ul>
+                                <li class="fragment">Converter a imagem para níveis de cinza</li>
+                                <li class="fragment">Evidenciar bordas</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Segmentação: Detectar retas na imagem</li>
+                        <li class="fragment">Representação: Parâmetros das retas encontradas</li>
+                        <li class="fragment">Interpretação: Estamos interessados em todas as retas encontradas?</li>
+                        <li class="fragment">Resultado: Retas desenhadas na imagem original</li>
+                    </ol>
+                </section>
+
+                <section data-transition="none">
+                    <h2><font color="#0af">Pré-Processamento</font></h2>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Conversão para níveis de cinza</font></h3>
+
+                    <pre><code class="ruby" data-trim contenteditable>
+                    module Vips
+                      class Image
+                        # Converts the image to greyscale.
+                        #
+                        # @return [Vips::Image] greyscale image
+                        def to_greyscale
+                          if format == :uchar
+                            colourspace(:b_w)[0] # 8-bit source
+                          else
+                            colourspace(:grey16)[0]
+                          end
+                        end
+                      end
+                    end
+                    </code></pre>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <img style="border: none" height="450" data-src="images/masp.JPG">
+                    </div>
+
+                    <div style="float: right; width: 50%">
+                        <img style="border: none" height="450" data-src="images/masp_bw.JPG">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Evidenciar bordas</font></h3>
+
+                    <ul>
+                        <li>Existem alguns algoritmos para tratar esse problema. Alguns conhecidos são o
+                            <i><font color="#0af">Canny edge detector</font></i> e o <i><font color="#0af">Sobel operator</font></i></li>
+                        <li>Nesta apresentação, utilizaremos o <b><font color="#0af">Gradiente Morfológico</font></b></li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <p>Para entendermos o <b><font color="#0af">Gradiente Morfológico</font></b>, precisamos antes
+                        de alguns conceitos sobre <b><font color="#0af">Morfologia Matemática</font></b>.</p>
                 </section>
             </div>
         </div>

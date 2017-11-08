@@ -627,7 +627,7 @@
                 <section data-transition="none">
                     <h3><font color="#0af">Passos para o processamento</font></h3>
 
-                    <ol>
+                    <ol style="font-size: 37px;">
                         <li class="fragment">Aquisição: uma imagem digital qualquer fornecida</li>
                         <li class="fragment">Pré-processamento
                             <ul>
@@ -695,28 +695,100 @@
                 <section data-transition="none">
                     <h3><font color="#0af">Morfologia Matemática</font></h3>
 
-                    <ul>
+                    <ul style="font-size: 37px;">
                         <li class="fragment">MM é uma teoria e técnica para a análise e processamento de estruturas geométricas</li>
                         <li class="fragment">Utiliza conceitos da álgebra (teoria dos conjuntos, reticulados completos) e geometria
                             (translação, distância e convexidade)</li>
-                        <li class="fragment">Os operadores morfológicos básicos são: dilatação, erosão, abertura e fechamento</li>
+                        <li class="fragment">Os operadores morfológicos básicos são: dilatação e erosão</li>
                     </ul>
                 </section>
 
                 <section data-transition="none">
                     <h3><font color="#0af">Dilatação</font></h3>
+
+                    <div style="text-align: left">
+                        <ul style="font-size: 37px;">
+                            <li class="fragment">Conhecida como uma operação de crescimento, expansão ou preenchimento de regiões</li>
+                            <li class="fragment">Inicialmente somente em imagens binárias, com adaptações posteriores para imagens em níveis de cinza</li>
+                            <li class="fragment">Algumas características:
+                                <ul>
+                                    <li>Tamanho dos objetos são aumentados</li>
+                                    <li>Pequenos buracos são eliminados</li>
+                                    <li>Número de componentes pode diminuir</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <p>A <b>Dilatação</b> recebe como parâmetros uma
+                        <span class="fragment highlight-blue visible">imagem de entrada</span> e um
+                        <span class="fragment highlight-red visible">elemento estruturante.</span></p>
+                </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Elemento Estruturante</font></h4>
+
+                    <div style="float: left; width: 65%">
+                        <ul style="font-size: 37px;">
+                            <li>Pode possuir qualquer forma ou tamanho, mas geralmente são utilizados quadrados
+                                ou círculos</li>
+                            <li>Também é definido um ponto de ancoragem, geralmente no centro</li>
+                        </ul>
+                    </div>
+
+                    <div style="float: left; width: 35%">
+                        <img style="border: none" height="215" data-src="images/ee.jpg">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Algoritmo</font></h4>
+
+                    <ul>
+                        <li>Utilizamos o elemento estruturante $E$ para percorrer a imagem, posicionando
+                            o ponto de ancoragem sobre cada pixel da imagem de entrada</li>
+                        <li>Substituímos o valor deste píxel pelo valor do maior pixel contido na região coberta por
+                            $E$</li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <img style="border: none" data-src="images/dilation_bin_01.png">
+                        <p>Imagem Original</p>
+                    </div>
+
+                    <div style="float: right; width: 50%" class="fragment">
+                        <img style="border: none" height="150" data-src="images/dilation_ee.png">
+                        <p style="font-size: 30px">Elemento Estruturante</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <img style="border: none" data-src="images/dilation_bin_02.png">
+                        <p style="font-size: 30px">Ponto de ancoragem no primeiro pixel da imagem</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <img style="border: none" data-src="images/dilation_bin_03.png">
+                        <p style="font-size: 30px">Ponto de ancoragem no pixel $[1, 1]$</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <img style="border: none" data-src="images/dilation_bin_04.png">
+                        <p style="font-size: 30px">Resultado da dilatação</p>
+                    </div>
                 </section>
 
                 <section data-transition="none">
                     <h3><font color="#0af">Erosão</font></h3>
-                </section>
-
-                <section data-transition="none">
-                    <h3><font color="#0af">Abertura</font></h3>
-                </section>
-
-                <section data-transition="none">
-                    <h3><font color="#0af">Fechamento</font></h3>
                 </section>
             </div>
         </div>

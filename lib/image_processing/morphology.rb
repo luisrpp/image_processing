@@ -4,26 +4,26 @@ module ImageProcessing
   # Morphology class
   class Morphology
     class << self
-      # Dilation on greyscale images, implemented with maximum filter.
+      # Dilation on greyscale images, implemented as maximum filter.
       #
       # @param image [Vips::Image] greyscale image
       # @param size_w [Integer] the width of the window
       # @param size_h [Integer] the height of the window
       #
-      # @return [Vips::Image] dilation result
+      # @return [Vips::Image] dilated image
       # @raise [ImageProcessing::ImageProcessingError] in case of invalid images
       def dilate(image, size_w = 3, size_h = size_w)
         validate_image(image)
         image.rank(size_w, size_h, size_w * size_h - 1)
       end
 
-      # Erode on greyscale images, implemented with minimum filter.
+      # Erode on greyscale images, implemented as minimum filter.
       #
       # @param image [Vips::Image] greyscale image
       # @param size_w [Integer] the width of the window
       # @param size_h [Integer] the height of the window
       #
-      # @return [Vips::Image] erosion result
+      # @return [Vips::Image] eroded image
       # @raise [ImageProcessing::ImageProcessingError] in case of invalid images
       def erode(image, size_w = 3, size_h = size_w)
         validate_image(image)

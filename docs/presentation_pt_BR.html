@@ -340,7 +340,7 @@
                     <section data-transition="none">
                         <h4>Aquisição de Imagens</h4>
 
-                        <ul>
+                        <ul style="font-size: 37px;">
                             <li>Pela utilização de um sensor de imageamento e a capacidade de digitalizar o
                                 sinal produzido pelo sensor</li>
                             <li>Pode ser a câmera de um smartphone, por exemplo</li>
@@ -358,7 +358,7 @@
                     <section data-transition="none">
                         <h4>Pré-processamento</h4>
 
-                        <ul>
+                        <ul style="font-size: 37px;">
                             <li>Melhorar a imagem de forma a aumentar as chances de sucesso das etapas
                                 seguintes</li>
                             <li>Aplicação de realce de contrastes, remoção de ruído, isolamento de regiões,
@@ -377,7 +377,7 @@
                     <section data-transition="none">
                         <h4>Segmentação</h4>
 
-                        <ul>
+                        <ul style="font-size: 37px;">
                             <li>Divide a imagem de entrada em partes. Por exemplo: objetos de interesse
                                 e o fundo da imagem</li>
                             <li>A segmentação automática é uma das tarefas mais difíceis no processamento
@@ -396,7 +396,7 @@
                     <section data-transition="none">
                         <h4>Representação e descrição</h4>
 
-                        <ul>
+                        <ul style="font-size: 37px;">
                             <li>A representação apenas transforma os dados iniciais em uma forma adequada
                                 para processamento posterior</li>
                             <li>A descrição procura enfatizar as características de interesse</li>
@@ -416,7 +416,7 @@
                     <section data-transition="none">
                         <h4>Reconhecimento e interpretação</h4>
 
-                        <ul>
+                        <ul style="font-size: 37px;">
                             <li>O reconhecimento é o processo que atribui um rótulo a um objeto</li>
                             <li>A interpretação atribui um significado a um conjunto de objetos reconhecidos</li>
                             <li>Exemplo: a identificação de caracteres, e se este conjunto corresponde ou não
@@ -435,7 +435,7 @@
                     <section data-transition="none">
                         <h4>Base de conhecimento</h4>
 
-                        <ul>
+                        <ul style="font-size: 37px;">
                             <li>É a codificação do conhecimento sobre o domínio do problema</li>
                             <li>Pode efetar qualquer módulo de processamento</li>
                             <li>Controla a interação entre os módulos</li>
@@ -680,7 +680,7 @@
                 <section data-transition="none">
                     <h3><font color="#0af">Evidenciar bordas</font></h3>
 
-                    <ul>
+                    <ul style="font-size: 37px;">
                         <li>Existem alguns algoritmos para tratar esse problema. Alguns conhecidos são o
                             <i><font color="#0af">Canny edge detector</font></i> e o <i><font color="#0af">Sobel operator</font></i></li>
                         <li>Nesta apresentação, utilizaremos o <b><font color="#0af">Gradiente Morfológico</font></b></li>
@@ -706,25 +706,23 @@
                 <section data-transition="none">
                     <h3><font color="#0af">Dilatação</font></h3>
 
-                    <div style="text-align: left">
-                        <ul style="font-size: 37px;">
-                            <li class="fragment">Conhecida como uma operação de crescimento, expansão ou preenchimento de regiões</li>
-                            <li class="fragment">Inicialmente somente em imagens binárias, com adaptações posteriores para imagens em níveis de cinza</li>
-                            <li class="fragment">Algumas características:
-                                <ul>
-                                    <li>Tamanho dos objetos são aumentados</li>
-                                    <li>Pequenos buracos são eliminados</li>
-                                    <li>Número de componentes pode diminuir</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul style="font-size: 37px;">
+                        <li class="fragment">Conhecida como uma operação de crescimento, expansão ou preenchimento de regiões</li>
+                        <li class="fragment">Inicialmente somente em imagens binárias, com adaptações posteriores para imagens em níveis de cinza</li>
+                        <li class="fragment">Algumas características:
+                            <ul>
+                                <li>Tamanho dos objetos são aumentados</li>
+                                <li>Pequenos buracos são eliminados</li>
+                                <li>Número de componentes pode diminuir</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </section>
 
                 <section data-transition="none">
                     <p>A <b>Dilatação</b> recebe como parâmetros uma
                         <span class="fragment highlight-blue visible">imagem de entrada</span> e um
-                        <span class="fragment highlight-red visible">elemento estruturante.</span></p>
+                        <span class="fragment highlight-red visible">elemento estruturante</span>.</p>
                 </section>
 
                 <section data-transition="none">
@@ -746,8 +744,8 @@
                 <section data-transition="none">
                     <h4><font color="#0af">Algoritmo</font></h4>
 
-                    <ul>
-                        <li>Utilizamos o elemento estruturante $E$ para percorrer a imagem, posicionando
+                    <ul style="font-size: 37px;">
+                        <li>Utilizamos um elemento estruturante $E$ para percorrer a imagem, posicionando
                             o ponto de ancoragem sobre cada pixel da imagem de entrada</li>
                         <li>Substituímos o valor deste pixel pelo valor do maior pixel contido na região coberta por
                             $E$</li>
@@ -788,8 +786,127 @@
                 </section>
 
                 <section data-transition="none">
-                    <h3><font color="#0af">Erosão</font></h3>
+                    <h4><font color="#0af">Dilatação no Ruby-Vips</font></h4>
+
+                    <div>
+                        <img style="border: none" data-src="images/ruby_vips_dilate.png">
+                        <p class="fragment" style="font-size: 30px"><font color=#ff3">Somente para <b>imagens binárias</b></font></p>
+                    </div>
                 </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Dilatação para imagens em níveis de cinza</font></h4>
+
+                    <p style="font-size: 30px">Implementação utilizando Rank Filter</p>
+
+                    <pre><code class="ruby" data-trim contenteditable>
+                    # Dilation on greyscale images, implemented
+                    # as maximum filter.
+                    #
+                    # @param image [Vips::Image] greyscale image
+                    # @param size_w [Integer] the width of the window
+                    # @param size_h [Integer] the height of the window
+                    #
+                    # @return [Vips::Image] dilated image
+                    def dilate(image, size_w = 3, size_h = size_w)
+                      image.rank(size_w, size_h, size_w * size_h - 1)
+                    end
+                    </code></pre>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Erosão</font></h3>
+
+                    <ul style="font-size: 37px;">
+                        <li class="fragment">Ao contrário da dilatação, a <b>Erosão</b> é uma operação que diminui o tamanho dos objetos presentes na imagem.</li>
+                        <li class="fragment">Outras características:
+                            <ul>
+                                <li>Objetos menores que o elemento estruturante são eliminados</li>
+                                <li>Número de componentes pode aumentar</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Algoritmo</font></h4>
+
+                    <ul style="font-size: 37px;">
+                        <li>Utilizamos um elemento estruturante $E$ para percorrer a imagem, posicionando
+                            o ponto de ancoragem sobre cada pixel da imagem de entrada</li>
+                        <li>Substituímos o valor deste pixel pelo valor do menor pixel contido na região coberta por
+                            $E$</li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <img style="border: none" data-src="images/erosion_bin_01.png">
+                        <p>Imagem Original</p>
+                    </div>
+
+                    <div style="float: right; width: 50%" class="fragment">
+                        <img style="border: none" height="150" data-src="images/dilation_ee.png">
+                        <p style="font-size: 30px">Elemento Estruturante</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <img style="border: none" data-src="images/erosion_bin_02.png">
+                        <p style="font-size: 30px">Ponto de ancoragem no primeiro pixel da imagem</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <img style="border: none" data-src="images/erosion_bin_03.png">
+                        <p style="font-size: 30px">Ponto de ancoragem no pixel $[1, 1]$</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <img style="border: none" data-src="images/erosion_bin_04.png">
+                        <p style="font-size: 30px">Ponto de ancoragem no pixel $[2, 2]$</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <img style="border: none" data-src="images/erosion_bin_05.png">
+                        <p style="font-size: 30px">Resultado da erosão</p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Erosão no Ruby-Vips</font></h4>
+
+                    <div>
+                        <img style="border: none" data-src="images/ruby_vips_erode.png">
+                        <p class="fragment" style="font-size: 30px"><font color=#ff3">Também somente para <b>imagens binárias</b></font></p>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Erosão para imagens em níveis de cinza</font></h4>
+
+                    <p style="font-size: 30px">Implementação utilizando Rank Filter</p>
+
+                    <pre><code class="ruby" data-trim contenteditable>
+                    # Erode on greyscale images, implemented as minimum filter.
+                    #
+                    # @param image [Vips::Image] greyscale image
+                    # @param size_w [Integer] the width of the window
+                    # @param size_h [Integer] the height of the window
+                    #
+                    # @return [Vips::Image] eroded image
+                    def erode(image, size_w = 3, size_h = size_w)
+                      image.rank(size_w, size_h, 0)
+                    end
+                    </code></pre>
+                </section>
+
             </div>
         </div>
 

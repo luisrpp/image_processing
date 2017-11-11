@@ -633,6 +633,7 @@
                             <ul>
                                 <li class="fragment">Converter a imagem para níveis de cinza</li>
                                 <li class="fragment">Evidenciar bordas</li>
+                                <li class="fragment">Thresholding</li>
                             </ul>
                         </li>
                         <li class="fragment">Segmentação: Detectar retas na imagem</li>
@@ -907,6 +908,127 @@
                     </code></pre>
                 </section>
 
+                <section data-transition="none">
+                    <h3><font color="#0af">Gradiente Morfológico</font></h3>
+
+                    <ul style="font-size: 37px;">
+                        <li>Operador utilizado para realçar as diferenças de intensidade de pixels em uma
+                            dada vizinhança</li>
+                        <li>Trata-se da diferença entre a dilatação e a erosão de uma imagem</li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Implementação do Gradiente Morfológico</font></h4>
+
+                    <pre><code class="ruby" data-trim contenteditable>
+                    # Morphological gradient.
+                    #
+                    # @param image [Vips::Image] greyscale image
+                    # @param size_w [Integer] the width of the window
+                    # @param size_h [Integer] the height of the window
+                    #
+                    # @return [Vips::Image] the morphological gradient
+                    def gradient(image, size_w = 3, size_h = size_w)
+                      dilate(image, size_w, size_h)
+                        .subtract(erode(image, size_w, size_h))
+                    end
+                    </code></pre>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 25%">
+                        <div>
+                            <p style="font-size: 25px">Imagem Original</p>
+                            <img style="border: none" height="230" data-src="images/original_example.jpe">
+                        </div>
+                    </div>
+                    <div class="fragment" style="float: left; width: 25%">
+                        <div>
+                            <p style="font-size: 25px">Dilatação</p>
+                            <img style="border: none" height="230" data-src="images/dilate_example.jpe">
+                        </div>
+                    </div>
+                    <div class="fragment" style="float: left; width: 25%">
+                        <div>
+                            <p style="font-size: 25px">Erosão</p>
+                            <img style="border: none" height="230" data-src="images/erode_example.jpe">
+                        </div>
+                    </div>
+                    <div class="fragment" style="float: left; width: 25%">
+                        <div>
+                            <p style="font-size: 25px">Gradiente</p>
+                            <img style="border: none" height="230" data-src="images/morphological_gradient.jpe">
+                        </div>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <p>A aplicação do gradiente morfológico em imagens em níveis de cinza pode gerar alguns ruídos.
+                        Podemos eliminá-los utilizando um <font color="#0af">Threshold Simples</font>.</p>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Thresholding</font></h3>
+
+                    <ul style="font-size: 37px;">
+                        <li>Definimos um limiar, de acordo com algumas características da imagem. Exemplo:
+                            50% do valor do pixel de maior intensidade</li>
+                        <li>Pixels acima do limiar são convertidos para branco (1 ou 255, dependendo da precisão)
+                            <li>Pixels abaixo do limiar são convertidos para preto (0)</li>
+                        <li>O resultado é uma imagem binária</li>
+                    </ul>
+                </section>
+
+                <section data-transition="none">
+                    <h4><font color="#0af">Thresholding no Ruby-Vips</font></h4>
+
+                    <pre><code class="ruby" data-trim contenteditable>
+                    # Definindo o valor do limiar
+                    limiar = image.max / 2
+
+                    # Threshold simples
+                    threshold_img = image > limiar
+                    </code></pre>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <div>
+                            <p style="font-size: 25px">Imagem Original</p>
+                            <img style="border: none" data-src="images/apple_original.jpg">
+                        </div>
+                    </div>
+                    <div style="float: left; width: 50%">
+                        <div>
+                            <p style="font-size: 25px">Threshold ($max / 5$)</p>
+                            <img style="border: none" data-src="images/apple_threshold.jpe">
+                        </div>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <div>
+                            <p style="font-size: 25px">Gradiente Morfológico</p>
+                            <img style="border: none" data-src="images/apple_gradient.jpe">
+                        </div>
+                    </div>
+                    <div style="float: left; width: 50%">
+                        <div>
+                            <p style="font-size: 25px">Threshold ($max / 5$)</p>
+                            <img style="border: none" data-src="images/apple_gradient_thrs.jpe">
+                        </div>
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h2><font color="#0af">Segmentação</font></h2>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Detecção de retas em Imagens</font></h3>
+                </section>
             </div>
         </div>
 

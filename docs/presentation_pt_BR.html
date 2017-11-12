@@ -1023,7 +1023,7 @@
                 </section>
 
                 <section data-transition="none">
-                    <h2><font color="#0af">Segmentação</font></h2>
+                    <h2><font color="#0af">Detecção de Retas em Imagens</font></h2>
                 </section>
 
                 <section data-transition="none">
@@ -1054,6 +1054,92 @@
                         <p style="font-size: 37px">Plano da Imagem</p>
                         <img style="border: none" height="500" data-src="images/hough_xy.svg">
                     </div>
+                </section>
+
+                <section data-transition="none">
+                    <p style="text-align: left">A equação da reta pode ser reescrita da seguinte forma:</p>
+
+                    <center>$b = -xa + y$ </center>
+
+                    <p style="text-align: left">tendo assim um novo sistema de coordenadas <i>a-b</i>.</p>
+
+                    <p class="fragment" style="text-align: left">O sistema de coordenadas <i>a-b</i> representa o espaço parametrizado.</p>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <p style="font-size: 37px">Plano da Imagem</p>
+                        <img style="border: none" data-src="images/hough_xy.svg">
+                    </div>
+                    <div class="fragment" style="float: left; width: 50%">
+                        <p style="font-size: 37px">Espaço Parametrizado</p>
+                        <img style="border: none" data-src="images/hough_ab.png">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <p>Vamos agora considerar um conjunto de retas que passa pelo ponto $(6, 5)$ no plano da imagem.</p>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <p style="font-size: 37px">Plano da Imagem</p>
+                        <img style="border: none" data-src="images/plano_imagem_01.png">
+                    </div>
+                    <div class="fragment" style="float: left; width: 50%">
+                        <p style="font-size: 37px">Espaço Parametrizado</p>
+                        <img style="border: none" data-src="images/espaco_parametrizado_01.svg">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <p>Podemos representar todas as retas que passam por um ponto no Plano da Imagem
+                        por apenas uma reta no Espaço Parametrizado.</p>
+                </section>
+
+                <section data-transition="none">
+                    <p>Agora, vamos considerar dois pontos no Plano da Imagem. Esses pontos são:
+                        $(4, 5)$ e $(8, 6)$.</p>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <p style="font-size: 37px">Plano da Imagem</p>
+                        <img style="border: none" data-src="images/plano_imagem_02.png">
+                    </div>
+                    <div class="fragment" style="float: left; width: 50%">
+                        <p style="font-size: 37px">Espaço Parametrizado</p>
+                        <img style="border: none" data-src="images/espaco_parametrizado_02.svg">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <p>A intersecção de retas no espaço parametrizado nos dá os parâmetros das retas
+                        que passam pelos pontos do plano da imagem.</p>
+                </section>
+
+                <section data-transition="none">
+                    <div>
+                        <p style="font-size: 37px">Plano da Imagem</p>
+                        <img style="border: none" height="500" data-src="images/plano_imagem_03.png">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Algoritmo</font></h3>
+
+                    <ol style="font-size: 37px;">
+                        <li class="fragment">Inicializar uma matriz acumuladora com todos os valores zerados (essa matriz representa
+                            o espaço parametrizado)</li>
+                        <li class="fragment">Para cada pixel diferente de zero da imagem:
+                            <ul>
+                                <li>Registrar sua reta correspondente no espaço parametrizado, somando $+1$ na
+                                    matriz acumuladora, nos pontos em que a reta passa</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Os pontos de maior intensidade na matriz acumuladora indicam os parâmetros das
+                            retas encontradas na imagem</li>
+                    </ol>
                 </section>
             </div>
         </div>

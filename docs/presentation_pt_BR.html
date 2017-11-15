@@ -1141,6 +1141,77 @@
                             retas encontradas na imagem</li>
                     </ol>
                 </section>
+
+                <section data-transition="none">
+                    <p>Mas...</p>
+
+                    <p class="fragment">Existe um problema computacional relacionado ao registro de intersecções
+                        na matriz acumuladora.</p>
+
+                    <p class="fragment">Como registar a intersecção de retas paralelas ou que se encontram próximas
+                        ao infinito?</p>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Representação normal da reta</font></h3>
+
+                    <div style="float: left; width: 60%">
+                        <p style="text-align: left">Podemos utilizar coordenadas polares para a representação de retas:</p>
+
+                        <center>$x.cos\theta + y.sen\theta = \rho$</center>
+                    </div>
+
+                    <div style="float: right; width: 40%">
+                        <img style="border: none" height="300" data-src="images/line_normal_form.png">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <h3><font color="#0af">Espaço parametrizado</font></h3>
+
+                    <ul>
+                        <li>Os parâmetros $a$-$b$, da representação anterior, são então substituídos pelos parâmetros $\theta$ e $\rho$</li>
+                        <li>Todas as retas que passam por um ponto no plano da imagem, passam a ser representados por uma senoide no espaço parametrizado</li>
+                    </ul>
+                </section>
+
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <p style="font-size: 37px">Plano da Imagem</p>
+                        <img style="border: none" data-src="images/hough_param_01.png">
+                    </div>
+
+                    <div class="fragment" style="float: left; width: 50%">
+                        <p style="font-size: 37px">Espaço Parametrizado</p>
+                        <img style="border: none" data-src="images/hough_param_02.png">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <div style="float: left; width: 50%">
+                        <p style="font-size: 37px">Plano da Imagem</p>
+                        <img style="border: none" data-src="images/original_lines.jpg">
+                    </div>
+
+                    <div class="fragment" style="float: left; width: 50%">
+                        <p style="font-size: 37px">Espaço Parametrizado</p>
+                        <img style="border: none" width="500" data-src="images/hough_inverted.jpg">
+                    </div>
+                </section>
+
+                <section data-transition="none">
+                    <p>A implementação da transformada de Hough para detecção de retas pode ser encontrada em:</p>
+
+                    <a href="https://github.com/luisrpp/image_processing" target="_blank">https://github.com/luisrpp/image_processing</a>
+                </section>
+
+                <section data-transition="none">
+                    <h1><font color="#0af">DEMO</font></h1>
+                </section>
+
+                <section data-transition="none" data-background="images/obrigado.png">
+                </section>
             </div>
         </div>
 
